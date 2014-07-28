@@ -1,0 +1,167 @@
+<!doctype html>
+    
+    <head>
+        
+        <script src="angular.min.js" ></script>
+        <script src="app.js" ></script>
+        <script src="controllers.js" ></script>
+        
+        <style>
+            
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            
+            .clear {
+                clear: both;
+            }
+            
+            main {
+                width: 960px;
+                height: 540px;
+                outline: 1px solid #ccc;
+                margin: 0 auto;
+            }
+            
+            #menu {
+                border: 1px solid #ccc;
+            }
+            
+            #question {
+                border: 1px solid #ccc;
+                height: 540px;
+                background-image: url('assets/quizbg.png');
+                position: relative;
+            }
+            
+            .question {
+                margin: 250px auto 0;
+                width: 500px;
+                height: 50px;
+                background-color: #7a7a7a;
+                text-align: center;
+                line-height: 50px;
+                color: #fff;
+                font-weight: bold;
+            }
+            
+            .answers {
+                width: 500px;
+                margin: 0 auto;
+                position: relative;
+            }
+            
+            .answers .col-1 {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+            
+            .answers .col-2 {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+            
+            .answer {
+                border: 1px solid #ccc;
+                padding: 5px;
+                margin: 5px;
+                width: 100px;
+                
+            }
+            
+            .answer-a {
+                background-image: url('assets/red.png');
+            }
+            
+            #countdown {
+                color: #fff;
+                font-weight: bold;
+                font-size: 25px;
+                background-color: green;
+                width: 50px;
+                height: 50px;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                text-align: center;
+                line-height: 50px;
+            }
+            
+        </style>
+        
+    </head>
+    
+    <body ng-app="PartyTriviaApp" ng-controller="QuestionsCtrl">
+        
+        <main>
+            
+            <div id="menu">
+                PARTY TRIVIA
+            </div>
+            
+            <div id="loading"></div>
+        
+            {{ seenQuestions }}
+            
+            <div id="question">
+                
+                <div id="countdown">
+                    {{ TimeRemaining }}  
+                </div>
+                
+                <div class="question">{{question.question}}</div>
+                
+                <div class="answers">
+                    
+                    <div class="col-1">
+                        <div class="answer answer-a">
+                            {{question.answer_a}}
+                        </div>
+                        <div class="answer answer-c">
+                            {{question.answer_c}}
+                        </div>
+                    </div>
+                    
+                    <div class="clear"></div>
+                    
+                    <div class="col-2">
+                        <div class="answer answer-b">
+                            {{question.answer_b}}
+                        </div>
+                        <div class="answer answer-d">
+                            {{question.answer_d}}
+                        </div>  
+                    </div>
+                    
+                    <p></p>     
+                </div>
+                
+            </div>
+            
+            
+            
+            <div id="audio">
+                <audio id="answer_a_audio">
+                    <source src="answer_a.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+                <audio id="answer_b_audio">
+                    <source src="answer_b.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+                <audio id="answer_c_audio">
+                    <source src="answer_c.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+                <audio id="answer_d_audio">
+                    <source src="answer_d.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio> 
+            </div>
+            
+        </main>
+        
+    </body>
+</html>
