@@ -10,6 +10,8 @@
             
             body {
                 font-family: Arial, Helvetica, sans-serif;
+                background-color: #002157;
+                
             }
             
             .clear {
@@ -19,31 +21,39 @@
             main {
                 width: 960px;
                 height: 540px;
-                outline: 1px solid #ccc;
                 margin: 0 auto;
                 overflow: hidden;
             }
             
             #menu {
-                border: 1px solid #ccc;
-            }
-            
-            #loading {
-                height: 540px;
-                z-index: 9999;
-                background-color: #ccc;
                 display: none;
             }
             
+            #loading {
+                background-image: url('assets/bg.png');
+                width: 960px;
+                height: 540px;
+                line-height: 540px;
+                z-index: 9999;
+                background-color: #ccc;
+                color: #fff;
+                font-size: 32px;
+                font-weight: bold;
+                display: block;
+                position: absolute;
+                z-index: 9999;
+                text-align: center;
+            }
+            
             #question {
-                border: 1px solid #ccc;
+                border: none;
                 height: 540px;
                 background-image: url('assets/quizbg.png');
                 position: relative;
             }
             
             .question {
-                margin: 250px auto 0;
+                margin: 0 auto;
                 width: 500px;
                 height: 50px;
                 background-color: #7a7a7a;
@@ -51,18 +61,30 @@
                 line-height: 50px;
                 color: #fff;
                 font-weight: bold;
+                position: relative;
+                top: 205px;
             }
             
             .answers {
-                width: 500px;
+                width: 960px;
                 margin: 0 auto;
                 position: relative;
+                position: relative;
+                top: 205px;
             }
             
             .answers .col-1 {
                 position: absolute;
                 left: 0;
                 top: 0;
+            }
+            
+            .answers .col-1.shifted {
+                left: -480px;    
+            }
+            
+            .answers .col-2.shifted {
+                right: -480px;    
             }
             
             .answers .col-1.animate {
@@ -74,12 +96,12 @@
             }
             
             @keyframes slideInLeftCol {
-                from { left: -346px; }
+                from { left: -480px; }
                 to { left: 0px; }
             }
             
             @keyframes slideInRightCol {
-                from { right: -346px; }
+                from { right: -480px; }
                 to { left: 0px; }
             }
             
@@ -90,12 +112,11 @@
             }
             
             .answer {
-                border: 1px solid #ccc;
-                padding: 5px;
-                margin: 5px;
-                width: 100px;
+                width: 480px;
                 background-color: #7a7a7a;
-                height: 25px;
+                height: 75px;
+                line-height: 75px;
+                text-align: center;
                 color: #fff;
             }
             
@@ -138,6 +159,10 @@
                 border-radius: 50%;
             }
             
+            #countdown.shifted {
+                top: -50px;
+            }
+            
             #countdown.animate {
                 animation: slideDownTimer 1s;
             }
@@ -147,25 +172,38 @@
                 to { top: 20px; }
             }
             
+            #loading {
+                opacity: 1;
+            }
+            
+            #loading.visible {
+                transition: opacity 0.5s ease-in-out;
+                -moz-transition: opacity 0.5s ease-in-out;
+                -webkit-transition: opacity 0.5s ease-in-out;
+                opacity: 0;
+            }
+            
         </style>
         
     </head>
     
     <body ng-app="PartyTriviaApp" ng-controller="QuestionsCtrl">
-        
+        <a href="javascript:void(0)" ng-click="showQuestions()" />reset</a>
         <main>
             
             <!--<div id="menu">
                 PARTY TRIVIA
             </div>-->
             
-            <!--<div id="loading" ng-class="{ visible: animations.fadeOut }"></div>-->
+            <div id="loading" ng-class="{ visible: animations.fadeOut }">
+                LOADING
+            </div>
         
             <!--{{ seenQuestions }}-->
             
             <div id="question">
                 
-                <div id="countdown" ng-class="{ animate: animations.slideDown }">
+                <div id="countdown" ng-class="{ animate: animations.slideDown, shifted: shifted }">
                     {{ TimeRemaining }}  
                 </div>
                 
@@ -173,7 +211,7 @@
                 
                 <div class="answers">
                     
-                    <div class="col-1" ng-class="{ animate: animations.slideIn }">
+                    <div class="col-1" ng-class="{ animate: animations.slideIn, shifted: shifted }">
                         <div class="answer answer-a" ng-class="{ greyed: showAnswer }">
                             {{question.answer_a}}
                         </div>
@@ -184,7 +222,7 @@
                     
                     <div class="clear"></div>
                     
-                    <div class="col-2" ng-class="{ animate: animations.slideIn }">
+                    <div class="col-2" ng-class="{ animate: animations.slideIn, shifted: shifted }">
                         <div class="answer answer-b" ng-class="{ greyed: showAnswer }">
                             {{question.answer_b}}
                         </div>

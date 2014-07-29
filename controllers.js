@@ -8,7 +8,10 @@ app.controller("MainController", function($scope) {
 
 app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
     
+    
+    
     var questionsLimit = 10;
+    var loop;
     var timer;
     
     $scope.question = {
@@ -23,8 +26,11 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
     
     $scope.animations = {
         'slideIn' : false,
-        'slideDown' : false
+        'slideDown' : false,
+        'fadeOut' : false
     }
+    
+    $scope.shifted = true;
     
     $scope.showAnswer = false;
     
@@ -54,26 +60,34 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
                     return;                
                 }
                 
-                $timeout($scope.startCountdown, 1000);
-                $timeout($scope.stopCountdown, 20000);
+                $scope.resetAnimations();
+                $scope.resetCountdown();
+                $scope.shifted = true; 
                 
-                $scope.animations.slideIn = true;
-                $scope.animations.slideDown = true;
+                $timeout(function() {
+                    $scope.animations.fadeOut = true;
+                }, 1000);    
                 
-                $timeout(function() { 
+                $timeout(function() {
                     $scope.question = data[rnd];
                     $scope.seenQuestions.push($scope.question.id);
-                    $scope.animations.slideIn = false;
-                    $scope.animations.slideDown = false;
+                    $scope.animations.slideIn = true;
+                    $scope.animations.slideDown = true;
+                    $scope.shifted = false; 
                 }, 1000);
+                
+                $timeout(function() {
+                    $scope.startCountdown();
+                }, 3000);
                 
                 $scope.count++;
                 
                 $timeout($scope.sendAnswer, 1000);
-                $timeout($scope.showQuestions, 21000);
+                
+                loop = $timeout($scope.showQuestions, 25000);
                       
             });
-        
+    
     }
     
     $scope.showQuestions();
@@ -88,17 +102,25 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
     $scope.TimeRemaining = 20;
     
     $scope.startCountdown = function() {
-        if (!$scope.TimeRemaining) {
-            $scope.TimeRemaining = 20;    
+        if ($scope.TimeRemaining == 0) {
+            $timeout.cancel(timer);
+            return;
         }
         timer = $timeout($scope.startCountdown, 1000);
         $scope.TimeRemaining--;
-        return;
     }
     
-    $scope.stopCountdown = function() {
-        $scope.TimeRemaining = 0;
-        $timeout.cancel(timer);    
+    $scope.resetAnimations = function() {
+        for (var k in $scope.animations) {
+            if ($scope.animations.hasOwnProperty(k)) {
+                $scope.animations[k] = false;        
+            }
+        }
+    }
+    
+    $scope.resetCountdown = function() {
+        $timeout.cancel(timer);
+        $scope.TimeRemaining = 20;
     }
     
     
