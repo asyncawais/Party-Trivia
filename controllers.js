@@ -1,14 +1,6 @@
 "use strict"
 
-app.controller("MainController", function($scope) {
-    $scope.test = function() {	
-    
-    }
-});
-
 app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
-    
-    
     
     var questionsLimit = 10;
     var loop;
@@ -31,13 +23,12 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
     }
     
     $scope.shifted = true;
-    
     $scope.showAnswer = false;
-    
     $scope.seenQuestions    = [];
     $scope.seenCategories   = [];
-    
     $scope.count = 0;
+    $scope.TimeRemaining = 20;
+    
     
     $scope.showQuestions = function() {
         
@@ -78,11 +69,10 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
                 
                 $timeout(function() {
                     $scope.startCountdown();
+                    $scope.sendAnswer();
                 }, 3000);
                 
                 $scope.count++;
-                
-                $timeout($scope.sendAnswer, 1000);
                 
                 loop = $timeout($scope.showQuestions, 25000);
                       
@@ -98,8 +88,6 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
         $audio[0].play();
         console.log('The correct answer is: ' + answer);
     }
-    
-    $scope.TimeRemaining = 20;
     
     $scope.startCountdown = function() {
         if ($scope.TimeRemaining == 0) {
