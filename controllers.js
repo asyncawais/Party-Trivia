@@ -22,13 +22,12 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
         'fadeOut' : false
     }
     
-    $scope.shifted = true;
-    $scope.showAnswer = false;
+    $scope.shifted          = true;
+    $scope.showAnswer       = false;
     $scope.seenQuestions    = [];
     $scope.seenCategories   = [];
-    $scope.count = 0;
-    $scope.TimeRemaining = 20;
-    
+    $scope.count            = 0;
+    $scope.TimeRemaining    = 20;
     
     $scope.showQuestions = function() {
         
