@@ -22,8 +22,11 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
     };
     
     $scope.animations = {
-        'slideIn' : false
+        'slideIn' : false,
+        'slideDown' : false
     }
+    
+    $scope.showAnswer = false;
     
     $scope.seenQuestions    = [];
     $scope.seenCategories   = [];
@@ -55,11 +58,13 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
                 $timeout($scope.stopCountdown, 20000);
                 
                 $scope.animations.slideIn = true;
+                $scope.animations.slideDown = true;
                 
                 $timeout(function() { 
                     $scope.question = data[rnd];
                     $scope.seenQuestions.push($scope.question.id);
                     $scope.animations.slideIn = false;
+                    $scope.animations.slideDown = false;
                 }, 1000);
                 
                 $scope.count++;

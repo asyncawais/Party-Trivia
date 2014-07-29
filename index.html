@@ -28,6 +28,13 @@
                 border: 1px solid #ccc;
             }
             
+            #loading {
+                height: 540px;
+                z-index: 9999;
+                background-color: #ccc;
+                display: none;
+            }
+            
             #question {
                 border: 1px solid #ccc;
                 height: 540px;
@@ -89,11 +96,31 @@
                 width: 100px;
                 background-color: #7a7a7a;
                 height: 25px;
-                
+                color: #fff;
             }
             
             .answer-a {
                 background-image: url('assets/red.png');
+                background-color: red;
+            }
+            
+            .answer-b {
+                background-image: url('assets/red.png');
+                background-color: green;
+            }
+            
+            .answer-c {
+                background-image: url('assets/red.png');
+                background-color: blue
+            }
+            
+            .answer-d {
+                background-image: url('assets/red.png');
+                background-color: yellow
+            }
+            
+            .answer.greyed {
+                background-color: #7a7a7a;
             }
             
             #countdown {
@@ -108,9 +135,17 @@
                 right: 20px;
                 text-align: center;
                 line-height: 50px;
+                border-radius: 50%;
             }
             
+            #countdown.animate {
+                animation: slideDownTimer 1s;
+            }
             
+            @keyframes slideDownTimer {
+                from { top: -50px; }
+                to { top: 20px; }
+            }
             
         </style>
         
@@ -120,29 +155,29 @@
         
         <main>
             
-            <div id="menu">
+            <!--<div id="menu">
                 PARTY TRIVIA
-            </div>
+            </div>-->
             
-            <div id="loading"></div>
+            <!--<div id="loading" ng-class="{ visible: animations.fadeOut }"></div>-->
         
-            {{ seenQuestions }}
+            <!--{{ seenQuestions }}-->
             
             <div id="question">
                 
-                <div id="countdown">
+                <div id="countdown" ng-class="{ animate: animations.slideDown }">
                     {{ TimeRemaining }}  
                 </div>
                 
-                <div class="question">{{question.question}}</div>
+                <div class="question">{{ question.question }}</div>
                 
                 <div class="answers">
                     
                     <div class="col-1" ng-class="{ animate: animations.slideIn }">
-                        <div class="answer answer-a">
+                        <div class="answer answer-a" ng-class="{ greyed: showAnswer }">
                             {{question.answer_a}}
                         </div>
-                        <div class="answer answer-c">
+                        <div class="answer answer-c" ng-class="{ greyed: showAnswer }">
                             {{question.answer_c}}
                         </div>
                     </div>
@@ -150,10 +185,10 @@
                     <div class="clear"></div>
                     
                     <div class="col-2" ng-class="{ animate: animations.slideIn }">
-                        <div class="answer answer-b">
+                        <div class="answer answer-b" ng-class="{ greyed: showAnswer }">
                             {{question.answer_b}}
                         </div>
-                        <div class="answer answer-d">
+                        <div class="answer answer-d" ng-class="{ greyed: showAnswer }">
                             {{question.answer_d}}
                         </div>  
                     </div>
