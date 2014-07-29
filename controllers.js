@@ -21,6 +21,10 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
         'correct'        : ''
     };
     
+    $scope.animations = {
+        'slideIn' : false
+    }
+    
     $scope.seenQuestions    = [];
     $scope.seenCategories   = [];
     
@@ -29,8 +33,10 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
     $scope.showQuestions = function() {
         
         var httpRequest = $http({
+                
                 method  : 'POST',
-                url     : 'questions.json'       
+                url     : 'questions.json'
+                
             }).success(function(data, status) {
             
                 if ($scope.count == questionsLimit) {
@@ -48,19 +54,19 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
                 $timeout($scope.startCountdown, 1000);
                 $timeout($scope.stopCountdown, 20000);
                 
-                $timeout(function() {
+                $scope.animations.slideIn = true;
+                
+                $timeout(function() { 
                     $scope.question = data[rnd];
                     $scope.seenQuestions.push($scope.question.id);
+                    $scope.animations.slideIn = false;
                 }, 1000);
                 
                 $scope.count++;
                 
-                $timeout($scope.sendAnswer, 1000); 
-                
+                $timeout($scope.sendAnswer, 1000);
                 $timeout($scope.showQuestions, 21000);
-                
-                
-                        
+                      
             });
         
     }

@@ -21,6 +21,7 @@
                 height: 540px;
                 outline: 1px solid #ccc;
                 margin: 0 auto;
+                overflow: hidden;
             }
             
             #menu {
@@ -57,6 +58,24 @@
                 top: 0;
             }
             
+            .answers .col-1.animate {
+                animation: slideInLeftCol 1s;
+            }
+            
+            .answers .col-2.animate {
+                animation: slideInRightCol 1s;
+            }
+            
+            @keyframes slideInLeftCol {
+                from { left: -346px; }
+                to { left: 0px; }
+            }
+            
+            @keyframes slideInRightCol {
+                from { right: -346px; }
+                to { left: 0px; }
+            }
+            
             .answers .col-2 {
                 position: absolute;
                 right: 0;
@@ -68,6 +87,8 @@
                 padding: 5px;
                 margin: 5px;
                 width: 100px;
+                background-color: #7a7a7a;
+                height: 25px;
                 
             }
             
@@ -88,6 +109,8 @@
                 text-align: center;
                 line-height: 50px;
             }
+            
+            
             
         </style>
         
@@ -115,7 +138,7 @@
                 
                 <div class="answers">
                     
-                    <div class="col-1">
+                    <div class="col-1" ng-class="{ animate: animations.slideIn }">
                         <div class="answer answer-a">
                             {{question.answer_a}}
                         </div>
@@ -126,7 +149,7 @@
                     
                     <div class="clear"></div>
                     
-                    <div class="col-2">
+                    <div class="col-2" ng-class="{ animate: animations.slideIn }">
                         <div class="answer answer-b">
                             {{question.answer_b}}
                         </div>
