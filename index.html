@@ -42,7 +42,7 @@
                 z-index: 9999;
                 background-color: #ccc;
                 color: #fff;
-                font-size: 32px;
+                font-size: 45px;
                 font-weight: bold;
                 display: block;
                 position: absolute;
@@ -153,7 +153,7 @@
                 color: #fff;
                 font-weight: bold;
                 font-size: 35px;
-                background-color: green;
+                background-color: transparent;
                 width: 70px;
                 height: 70px;
                 line-height: 70px;
@@ -162,6 +162,11 @@
                 right: 20px;
                 text-align: center;
                 border-radius: 50%;
+                border: 10px solid green;
+            }
+            
+            #countdown.red {
+                border: 10px solid red;
             }
             
             #countdown.shifted {
@@ -208,7 +213,7 @@
             
             <div id="question">
                 
-                <div id="countdown" ng-class="{ animate: animations.slideDown, shifted: shifted }">
+                <div id="countdown" ng-class="{ animate: animations.slideDown, shifted: shifted, red: TimeRemaining < 4 }">
                     {{ TimeRemaining }}  
                 </div>
                 
@@ -240,8 +245,6 @@
                 </div>
                 
             </div>
-            
-            
             
             <div id="audio">
                 <audio id="answer_a_audio">

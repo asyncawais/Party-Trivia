@@ -1,7 +1,7 @@
 [
     {
         "id"          : "1",          
-        "question"    : "asdasdsadsadsadasdasd ??",
+        "question"    : "Statues of Buddha show him sitting on ...?",
         "answer_a"    : "awais",
         "answer_b"    : "awais1",
         "answer_c"    : "awais2",
@@ -10,7 +10,7 @@
     },
     {
         "id"          : "2",          
-        "question"    : "What is you're name 2?",
+        "question"    : "The owl and the pussycat bought their wedding ring from which animal?",
         "answer_a"    : "awais",
         "answer_b"    : "awais1",
         "answer_c"    : "awais2",
@@ -19,7 +19,7 @@
     },
     {
         "id"          : "3",          
-        "question"    : "xasxasxasWhat is you're name 2?",
+        "question"    : "Four cards of a straight in poker with a card in the middle missing is called ?",
         "answer_a"    : "awais",
         "answer_b"    : "awais1",
         "answer_c"    : "awais2",
