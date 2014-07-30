@@ -28,6 +28,7 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
     $scope.seenCategories   = [];
     $scope.count            = 0;
     $scope.TimeRemaining    = 20;
+    $scope.gameState        = '';
     
     $scope.showQuestions = function() {
         
@@ -39,7 +40,8 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
             }).success(function(data, status) {
             
                 if ($scope.count == questionsLimit) {
-                    console.log('quiz ended');
+                    $scope.gameState = 'Game Over';
+                    console.log('Game Over');
                     return;
                 }
                 
@@ -53,6 +55,7 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
                 $scope.resetAnimations();
                 $scope.resetCountdown();
                 $scope.shifted = true; 
+                $scope.showAnswer = false;  
                 
                 $timeout(function() {
                     $scope.animations.fadeOut = true;
@@ -70,6 +73,10 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
                     $scope.startCountdown();
                     $scope.sendAnswer();
                 }, 3000);
+                
+                $timeout(function() {
+                    $scope.showAnswer = true;    
+                }, 23000);
                 
                 $scope.count++;
                 
