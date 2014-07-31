@@ -80,7 +80,7 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
                 
                 $scope.count++;
                 
-                loop = $timeout($scope.showQuestions, 25000);
+                loop = $timeout($scope.showQuestions, 26000);
                       
             });
     
@@ -89,7 +89,10 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
     $scope.showQuestions();
     
     $scope.sendAnswer = function() {
-        var answer = $scope.question.correct;
+        var answer = $scope.question.correct.toUpperCase();
+        
+        console.log(answer);
+        
         var $audio = angular.element( document.querySelector('#answer_' + answer + '_audio'));
         $audio[0].play();
         console.log('The correct answer is: ' + answer);

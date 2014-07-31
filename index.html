@@ -127,11 +127,9 @@
             
             .answer-a {
                 background-image: url('assets/red.png');
-                
             }
             
             .answer-b {
-                
                 background-image: url('assets/blue.png');
             }
             
@@ -143,8 +141,20 @@
                 background-image: url('assets/yellow.png');
             }
             
-            .answer.greyed {
-                background-color: #7a7a7a;
+            .answer-a.greyed {
+                background-image: url('assets/red-greyed.png');
+            }
+            
+            .answer-b.greyed {
+                background-image: url('assets/blue-greyed.png');
+            }
+            
+            .answer-c.greyed {
+                background-image: url('assets/green-greyed.png');
+            }
+            
+            .answer-d.greyed {
+                background-image: url('assets/yellow-greyed.png');
             }
             
             .answer-a p, .answer-c p  {
@@ -242,10 +252,10 @@
                 <div class="answers">
                     
                     <div class="col-1" ng-class="{ animate: animations.slideIn, shifted: shifted }">
-                        <div class="answer answer-a" ng-class="{ greyed: showAnswer && question.correct == 'a' }">
+                        <div class="answer answer-a" ng-class="{ greyed: showAnswer && question.correct != 'A' }">
                             <p>{{ question.answer_a }}</p>
                         </div>
-                        <div class="answer answer-c" ng-class="{ greyed: showAnswer && question.correct == 'c' }">
+                        <div class="answer answer-c" ng-class="{ greyed: showAnswer && question.correct != 'C' }">
                             <p>{{ question.answer_c }}</p>
                         </div>
                     </div>
@@ -253,10 +263,10 @@
                     <div class="clear"></div>
                     
                     <div class="col-2" ng-class="{ animate: animations.slideIn, shifted: shifted }">
-                        <div class="answer answer-b" ng-class="{ greyed: showAnswer && question.correct == 'b' }">
+                        <div class="answer answer-b" ng-class="{ greyed: showAnswer && question.correct != 'B' }">
                             <p>{{ question.answer_b }}</p>
                         </div>
-                        <div class="answer answer-d" ng-class="{ greyed: showAnswer && question.correct == 'd' }">
+                        <div class="answer answer-d" ng-class="{ greyed: showAnswer && question.correct != 'D' }">
                             <p>{{ question.answer_d }}</p>
                         </div>  
                     </div>
@@ -267,20 +277,20 @@
             </div>
             
             <div id="audio">
-                <audio id="answer_a_audio">
-                    <source src="answer_a.wav" type="audio/wav">
+                <audio id="answer_A_audio">
+                    <source src="answer_A.wav" type="audio/wav">
                     Your browser does not support the audio element.
                 </audio>
-                <audio id="answer_b_audio">
-                    <source src="answer_b.wav" type="audio/wav">
+                <audio id="answer_B_audio">
+                    <source src="answer_B.wav" type="audio/wav">
                     Your browser does not support the audio element.
                 </audio>
-                <audio id="answer_c_audio">
-                    <source src="answer_c.wav" type="audio/wav">
+                <audio id="answer_C_audio">
+                    <source src="answer_C.wav" type="audio/wav">
                     Your browser does not support the audio element.
                 </audio>
-                <audio id="answer_d_audio">
-                    <source src="answer_d.wav" type="audio/wav">
+                <audio id="answer_D_audio">
+                    <source src="answer_D.wav" type="audio/wav">
                     Your browser does not support the audio element.
                 </audio> 
             </div>
