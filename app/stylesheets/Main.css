@@ -1,0 +1,224 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #002157;
+}
+
+.clear {
+    clear: both;
+}
+
+main {
+    width: 960px;
+    height: 540px;
+    margin: 0 auto;
+    overflow: hidden;
+    outline: 1px solid #aaa;
+}
+
+#menu {
+    display: none;
+}
+
+#loading, #final {
+    background-image: url('../images/bg.png');
+    width: 960px;
+    height: 540px;
+    line-height: 540px;
+    z-index: 9999;
+    background-color: #ccc;
+    color: #fff;
+    font-size: 45px;
+    font-weight: bold;
+    display: block;
+    position: absolute;
+    text-align: center;
+}
+
+#question {
+    border: none;
+    height: 540px;
+    background-image: url('../images/quizbg.png');
+    position: relative;
+}
+
+.question {
+    margin: 0 auto;
+    width: 826px;
+    height: 101px;
+    line-height: 101px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    position: relative;
+    top: 205px;
+    background-image: url('../images/questionbg.png');
+}
+
+.answers {
+    width: 960px;
+    margin: 0 auto;
+    position: relative;
+    position: relative;
+    top: 225px;
+}
+
+.answers .col-1 {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.answers .col-1.shifted {
+    left: -480px;
+}
+
+.answers .col-2.shifted {
+    right: -480px;
+}
+
+.answers .col-1.animate {
+    animation: slideInLeftCol 1s;
+}
+
+.answers .col-2.animate {
+    animation: slideInRightCol 1s;
+}
+
+@keyframes slideInLeftCol {
+    from {
+        left: -480px;
+    }
+
+    to {
+        left: 0px;
+    }
+}
+
+@keyframes slideInRightCol {
+    from {
+        right: -480px;
+    }
+
+    to {
+        left: 0px;
+    }
+}
+
+.answers .col-2 {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.answer {
+    width: 480px;
+    height: 75px;
+    line-height: 75px;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.answer-a {
+    background-image: url('../images/red.png');
+}
+
+.answer-b {
+    background-image: url('../images/blue.png');
+}
+
+.answer-c {
+    background-image: url('../images/green.png');
+}
+
+.answer-d {
+    background-image: url('../images/yellow.png');
+}
+
+.answer-a.greyed {
+    background-image: url('../images/red-greyed.png');
+}
+
+.answer-b.greyed {
+    background-image: url('../images/blue-greyed.png');
+}
+
+.answer-c.greyed {
+    background-image: url('../images/green-greyed.png');
+}
+
+.answer-d.greyed {
+    background-image: url('../images/yellow-greyed.png');
+}
+
+.answer-a p, .answer-c p {
+    width: 100px;
+    width: 338px;
+    margin-left: 105px;
+    float: left;
+}
+
+.answer-b p, .answer-d p {
+    width: 100px;
+    width: 338px;
+    margin-right: 105px;
+    float: right;
+}
+
+#countdown {
+    color: #fff;
+    font-weight: bold;
+    font-size: 35px;
+    background-color: transparent;
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-align: center;
+    border-radius: 50%;
+    border: 10px solid green;
+}
+
+#countdown.red {
+    border: 10px solid red;
+}
+
+#countdown.shifted {
+    top: -50px;
+}
+
+#countdown.animate {
+    animation: slideDownTimer 1s;
+}
+
+@keyframes slideDownTimer {
+    from {
+        top: -50px;
+    }
+
+    to {
+        top: 20px;
+    }
+}
+
+#final {
+    opacity: 0;
+}
+
+#loading {
+    opacity: 1;
+}
+
+#loading.visible {
+    transition: opacity 0.5s ease-in-out;
+    -moz-transition: opacity 0.5s ease-in-out;
+    -webkit-transition: opacity 0.5s ease-in-out;
+    opacity: 0;
+}
