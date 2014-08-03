@@ -17,9 +17,9 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
     };
     
     $scope.animations = {
-        'slideIn' : false,
+        'slideIn'   : false,
         'slideDown' : false,
-        'fadeOut' : false
+        'fadeOut'   : false
     }
     
     $scope.shifted          = true;
@@ -86,13 +86,13 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
     
     }
     
-    $scope.showQuestions();
+    
+    $timeout(function(){
+        $scope.showQuestions();    
+    }, 10000);
     
     $scope.sendAnswer = function() {
         var answer = $scope.question.correct.toUpperCase();
-        
-        console.log(answer);
-        
         var $audio = angular.element( document.querySelector('#answer_' + answer + '_audio'));
         $audio[0].play();
         console.log('The correct answer is: ' + answer);
@@ -119,8 +119,6 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
         $timeout.cancel(timer);
         $scope.TimeRemaining = 20;
     }
-    
-    
     
     // $timeout.cancel(promise);
     

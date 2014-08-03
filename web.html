@@ -1,30 +1,14 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>PartyTrivia</title>
-
-		<!-- TODO : Common API -->
-		<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/Widget.js"></script>
-		<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/TVKeyValue.js"></script>
-
-		<!-- TODO : Javascript code -->
-		<script language="javascript" type="text/javascript" src="app/javascript/angular.min.js"></script>
-        <script language="javascript" type="text/javascript" src="app/javascript/app.js"></script>
-        <script language="javascript" type="text/javascript" src="app/javascript/controllers.js"></script>
-		<script language="javascript" type="text/javascript" src="app/javascript/Main.js"></script>
-
-		<!-- TODO : Style sheets code -->
-		<link rel="stylesheet" href="app/stylesheets/Main.css" type="text/css">
-	</head>
-
-	<body ng-app="PartyTriviaApp" ng-controller="QuestionsCtrl" onload="Main.onLoad();" onunload="Main.onUnload();">
-
-		<!-- Dummy anchor as focus for key events -->
-		<a href="javascript:void(0);" id="anchor" onkeydown="Main.keyDown();"></a>
-
-		<!-- TODO: your code here -->
-		<main>
+<!doctype html>
+    <head>
+        <script src="app/javascript/angular.min.js" ></script>
+        <script src="app/javascript/app.js" ></script>
+        <script src="app/javascript/controllers.js" ></script>
+        <link rel="stylesheet" href="app/stylesheets/Main.css" type="text/css">
+    </head>
+    
+    <body ng-app="PartyTriviaApp" ng-controller="QuestionsCtrl">
+        
+        <main>
             
             <!--<div id="menu">
                 PARTY TRIVIA
@@ -46,7 +30,9 @@
                     {{ TimeRemaining }}
                 </div>
                 
-                <div class="question">{{ question.question }}</div>
+                <div class="question">
+                    <p>{{ question.question }}</p>
+                </div>
                 
                 <div class="answers">
                     
@@ -95,6 +81,6 @@
             </div>
             
         </main>
-		
-	</body>
+        
+    </body>
 </html>
