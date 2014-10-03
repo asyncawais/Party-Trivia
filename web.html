@@ -1,86 +1,62 @@
 <!doctype html>
-    <head>
-        <script src="app/javascript/angular.min.js" ></script>
-        <script src="app/javascript/app.js" ></script>
-        <script src="app/javascript/controllers.js" ></script>
-        <link rel="stylesheet" href="app/stylesheets/Main.css" type="text/css">
-    </head>
-    
-    <body ng-app="PartyTriviaApp" ng-controller="QuestionsCtrl">
-        
-        <main>
-            
-            <!--<div id="menu">
-                PARTY TRIVIA
-            </div>-->
-            
-            <div id="loading" ng-class="{ visible: animations.fadeOut }">
-                LOADING
-            </div>
-            
-            <div id="final" ng-class="{ }">
-                GAME OVER    
-            </div>
-        
-            <!--{{ seenQuestions }}-->
-            
-            <div id="question">
-                
-                <div id="countdown" ng-class="{ animate: animations.slideDown, shifted: shifted, red: TimeRemaining < 4 }">
-                    {{ TimeRemaining }}
+
+<head>
+    <script src="app/javascript/angular.min.js"></script>
+    <script src="app/javascript/app.js"></script>
+    <script src="app/javascript/controllers.js"></script>
+    <link rel="stylesheet" href="app/stylesheets/Main.css" type="text/css">
+</head>
+
+<body ng-app="PartyTriviaApp" ng-controller="QuestionsCtrl">
+<main>
+    <!--<div id="menu">
+            PARTY TRIVIA
+        </div>-->
+    <div id="loading" ng-class="{ visible: animations.fadeOut }">LOADING</div>
+    <!--
+        <div id="category">
+            {{ showCategory }}
+        </div>
+        -->
+    <div id="final" ng-class="{ }">GAME OVER</div>
+    <!--{{ seenQuestions }}-->
+    <div id="question">
+        <div id="countdown" ng-class="{ animate: animations.slideDown, shifted: shifted, red: TimeRemaining < 4 }">{{ TimeRemaining }}</div>
+        <div class="question">
+            <p>{{ question.question }}</p>
+        </div>
+        <div class="answers">
+            <div class="col-1" ng-class="{ animate: animations.slideIn, shifted: shifted }">
+                <div class="answer answer-a" ng-class="{ greyed: showAnswer && question.correct != 'A' }">
+                    <p>{{ question.answer_a }}</p>
                 </div>
-                
-                <div class="question">
-                    <p>{{ question.question }}</p>
+                <div class="answer answer-c" ng-class="{ greyed: showAnswer && question.correct != 'C' }">
+                    <p>{{ question.answer_c }}</p>
                 </div>
-                
-                <div class="answers">
-                    
-                    <div class="col-1" ng-class="{ animate: animations.slideIn, shifted: shifted }">
-                        <div class="answer answer-a" ng-class="{ greyed: showAnswer && question.correct != 'A' }">
-                            <p>{{ question.answer_a }}</p>
-                        </div>
-                        <div class="answer answer-c" ng-class="{ greyed: showAnswer && question.correct != 'C' }">
-                            <p>{{ question.answer_c }}</p>
-                        </div>
-                    </div>
-                    
-                    <div class="clear"></div>
-                    
-                    <div class="col-2" ng-class="{ animate: animations.slideIn, shifted: shifted }">
-                        <div class="answer answer-b" ng-class="{ greyed: showAnswer && question.correct != 'B' }">
-                            <p>{{ question.answer_b }}</p>
-                        </div>
-                        <div class="answer answer-d" ng-class="{ greyed: showAnswer && question.correct != 'D' }">
-                            <p>{{ question.answer_d }}</p>
-                        </div>  
-                    </div>
-                    
-                    <p></p>     
+            </div>
+            <div class="clear"></div>
+            <div class="col-2" ng-class="{ animate: animations.slideIn, shifted: shifted }">
+                <div class="answer answer-b" ng-class="{ greyed: showAnswer && question.correct != 'B' }">
+                    <p>{{ question.answer_b }}</p>
                 </div>
-                
+                <div class="answer answer-d" ng-class="{ greyed: showAnswer && question.correct != 'D' }">
+                    <p>{{ question.answer_d }}</p>
+                </div>
             </div>
-            
-            <div id="audio">
-                <audio id="answer_A_audio">
-                    <source src="app/audio/answer_A.wav" type="audio/wav">
-                    Your browser does not support the audio element.
-                </audio>
-                <audio id="answer_B_audio">
-                    <source src="app/audio/answer_B.wav" type="audio/wav">
-                    Your browser does not support the audio element.
-                </audio>
-                <audio id="answer_C_audio">
-                    <source src="app/audio/answer_C.wav" type="audio/wav">
-                    Your browser does not support the audio element.
-                </audio>
-                <audio id="answer_D_audio">
-                    <source src="app/audio/answer_D.wav" type="audio/wav">
-                    Your browser does not support the audio element.
-                </audio> 
-            </div>
-            
-        </main>
-        
-    </body>
+            <p></p>
+        </div>
+    </div>
+    <div id="audio">
+        <audio id="answer_A_audio">
+            <source src="app/audio/answer_A.wav" type="audio/wav">Your browser does not support the audio element.</audio>
+        <audio id="answer_B_audio">
+            <source src="app/audio/answer_B.wav" type="audio/wav">Your browser does not support the audio element.</audio>
+        <audio id="answer_C_audio">
+            <source src="app/audio/answer_C.wav" type="audio/wav">Your browser does not support the audio element.</audio>
+        <audio id="answer_D_audio">
+            <source src="app/audio/answer_D.wav" type="audio/wav">Your browser does not support the audio element.</audio>
+    </div>
+</main>
+</body>
+
 </html>

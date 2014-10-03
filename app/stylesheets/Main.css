@@ -18,6 +18,10 @@ main {
     margin: 0 auto;
     overflow: hidden;
     outline: 1px solid #aaa;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
 }
 
 #menu {
