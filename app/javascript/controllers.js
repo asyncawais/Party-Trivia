@@ -16,22 +16,29 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
             remaining   = 20;
 
         return {
-            draw: function() {
+            draw: function(options) {
+                var settings = angular.extend({
+                    'color': '#06de34'
+                }, options);
                 context.beginPath();
                 context.arc(x, y, radius, 0, (2 * Math.PI), false);
                 context.lineWidth = lineWidth;
-                context.strokeStyle = remaining <= 3.5 ? "#d5042d" : "#06de34" ;
+                //context.strokeStyle = remaining <= 3.6 ? "#d5042d" : "#06de34" ;
+                context.strokeStyle = settings.color;
                 context.stroke();
             },
             animate: function() {
                 var that       = this,
                     seg        = 2 / total,
                     startAngle = 1.5 * Math.PI,
-                    endAngle   = ((1.5) + (remaining * seg)) * Math.PI;
+                    endAngle   = ((1.5) + (remaining * seg)) * Math.PI,
+                    fps = 60;
                 var i = setInterval(function() {
                     context.clearRect(0, 0, $canvas.width, $canvas.height);
-                    that.draw();
-                    remaining -= ((1000 / 60) / 1000);
+                    that.draw({
+                        color: remaining <= 3.6 ? "#d5042d" : "#06de34"
+                    });
+                    remaining -= ((1000 / fps) / 1000);
                     endAngle = ((1.5) + (remaining * seg)) * Math.PI;
                     context.beginPath();
                     context.arc(x, y, radius, startAngle, endAngle, true);
@@ -41,8 +48,11 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
                     if (remaining < 0) {
                         clearInterval(i);
                         remaining = 20;
+                        that.draw({
+                            color: "#dddddd"
+                        });
                     }
-                }, 1000 / 60);
+                }, 1000 / fps);
             },
             clear: function() {
                 context.clearRect(0, 0, $canvas.width, $canvas.height);
@@ -76,6 +86,7 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
     $scope.showCategory = $scope.categories[0];
     $scope.count = 0;
     $scope.TimeRemaining = 20;
+    $scope.hideTimer = false;
     $scope.gameState = '';
     $scope.showQuestions = function() {
         var httpRequest = $http({
@@ -139,6 +150,7 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
     $scope.startCountdown = function() {
         if ($scope.TimeRemaining == 0) {
             $timeout.cancel(timer);
+            $scope.hideTimer = true;
             return;
         }
         timer = $timeout($scope.startCountdown, 1000);
@@ -154,6 +166,7 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
     $scope.resetCountdown = function() {
         $timeout.cancel(timer);
         $scope.TimeRemaining = 20;
+        $scope.hideTimer = false;
     };
     // $timeout.cancel(promise);
 });
