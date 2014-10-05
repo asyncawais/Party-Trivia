@@ -2,78 +2,67 @@
 
 app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
 
-    var questionsLimit = 8;
-    var loop;
-    var timer;
+    var questionsLimit = 8, loop, timer;
 
     var countdown = (function() {
 
-        var $canvas = document.getElementById('cc-countdown');
-
-        var context = $canvas.getContext('2d'),
-            x  = $canvas.width / 2, y = $canvas.height / 2,
-            radius = 60;
-
-        var lineWidth = '20';
+        var $canvas     = document.getElementById("cc-countdown"),
+            context     = $canvas.getContext("2d"),
+            x           = $canvas.width / 2,
+            y           = $canvas.height / 2,
+            radius      = 60,
+            lineWidth   = 25,
+            total       = 20,
+            remaining   = 20;
 
         return {
-            draw:function() {
-
-                var total = 20;
-                var elapsed = 20; // Seconds elapsed
-                var seg = 2 / total;
-
-                var startAngle = 1.5 * Math.PI;
-                var endAngle = ((1.5)+(elapsed * seg)) * Math.PI;
-
-
-
+            draw: function() {
                 context.beginPath();
-                context.arc(x, y, radius, startAngle, endAngle, false);
+                context.arc(x, y, radius, 0, (2 * Math.PI), false);
                 context.lineWidth = lineWidth;
-                context.strokeStyle = "green";
+                context.strokeStyle = remaining <= 3.5 ? "#d5042d" : "#06de34" ;
                 context.stroke();
-
             },
             animate: function() {
-
-                var total = 20;
-                var elapsed = 20; // Seconds elapsed
-                var seg = 2 / total;
-
-                var startAngle = 1.5 * Math.PI;
-                var endAngle = ((1.5)+(elapsed * seg)) * Math.PI;
-
+                var that       = this,
+                    seg        = 2 / total,
+                    startAngle = 1.5 * Math.PI,
+                    endAngle   = ((1.5) + (remaining * seg)) * Math.PI;
                 var i = setInterval(function() {
-                    elapsed -= ((1000/60) / 1000);
-                    endAngle = ((1.5)+(elapsed * seg)) * Math.PI;
+                    context.clearRect(0, 0, $canvas.width, $canvas.height);
+                    that.draw();
+                    remaining -= ((1000 / 60) / 1000);
+                    endAngle = ((1.5) + (remaining * seg)) * Math.PI;
                     context.beginPath();
                     context.arc(x, y, radius, startAngle, endAngle, true);
                     context.lineWidth = lineWidth;
-                    context.strokeStyle = "#aaaaaa";
+                    context.strokeStyle = "#dddddd";
                     context.stroke();
-
-                    if (elapsed < 0) {
+                    if (remaining < 0) {
                         clearInterval(i);
-                        elapsed = 20;
+                        remaining = 20;
                     }
-
-                }, 1000/60);
-
-
-
-
+                }, 1000 / 60);
+            },
+            clear: function() {
+                context.clearRect(0, 0, $canvas.width, $canvas.height);
             },
             reset: function() {
-                context.clearRect(0, 0, $canvas.width, $canvas.height);
+                this.clear();
                 this.draw();
             }
         }
     }());
-
     countdown.draw();
-
-    $scope.question = { "id": "", "question": "", "answer_a": "", "answer_b": "", "answer_c": "", "answer_d": "", "correct": "" };
+    $scope.question = {
+        "id": "",
+        "question": "",
+        "answer_a": "",
+        "answer_b": "",
+        "answer_c": "",
+        "answer_d": "",
+        "correct": ""
+    };
     $scope.animations = {
         'slideIn': false,
         'slideDown': false,
@@ -83,19 +72,19 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
     $scope.showAnswer = false;
     $scope.seenQuestions = [];
     $scope.seenCategories = [];
-    $scope.categories = $scope.UTIL.shuffle(['Entertainment', 'Geography', 'Science', 'Sport']);
+    $scope.categories = $scope.UTIL.shuffle(["Entertainment", "Geography", "Science", "Sport"]);
     $scope.showCategory = $scope.categories[0];
     $scope.count = 0;
     $scope.TimeRemaining = 20;
     $scope.gameState = '';
     $scope.showQuestions = function() {
         var httpRequest = $http({
-            method: 'POST',
-            url: 'questions.json'
+            method: "POST",
+            url: "questions.json"
         }).success(function(data, status) {
             if ($scope.count == questionsLimit) {
-                $scope.gameState = 'Game Over';
-                console.log('Game Over');
+                $scope.gameState = "Game Over";
+                console.log("Game Over");
                 return;
             }
             var rnd = Math.round(Math.random() * (data.length - 1));
@@ -130,7 +119,7 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
             $timeout(function() {
                 $scope.showAnswer = true;
             }, 23000);
-            console.log('count ' + $scope.count);
+            console.log("count " + $scope.count);
             $scope.count++;
             if ($scope.count > 0 && $scope.count % 2 == 0) { /* Change category after every nth item */
                 $scope.showCategory = $scope.categories[$scope.count / 2];
@@ -138,18 +127,15 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
             loop = $timeout($scope.showQuestions, 26000);
         });
     };
-
     $timeout(function() {
         $scope.showQuestions();
     }, 1000);
-
     $scope.sendAnswer = function() {
         var answer = $scope.question.correct.toUpperCase();
-        var $audio = angular.element(document.querySelector('#answer_' + answer + '_audio'));
+        var $audio = angular.element(document.querySelector("#answer_" + answer + "_audio"));
         //$audio[0].play();
-        console.log('The correct answer is: ' + answer);
+        console.log("The correct answer is: " + answer);
     };
-
     $scope.startCountdown = function() {
         if ($scope.TimeRemaining == 0) {
             $timeout.cancel(timer);
@@ -158,7 +144,6 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
         timer = $timeout($scope.startCountdown, 1000);
         $scope.TimeRemaining--;
     };
-
     $scope.resetAnimations = function() {
         for (var k in $scope.animations) {
             if ($scope.animations.hasOwnProperty(k)) {
@@ -166,16 +151,9 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
             }
         }
     };
-
     $scope.resetCountdown = function() {
         $timeout.cancel(timer);
         $scope.TimeRemaining = 20;
     };
-
-
-
-
-
-
     // $timeout.cancel(promise);
 });
