@@ -1,18 +1,79 @@
 "use strict"
 
 app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
+
     var questionsLimit = 8;
     var loop;
     var timer;
-    $scope.question = {
-        'id': '',
-        'question': '',
-        'answer_a': '',
-        'answer_b': '',
-        'answer_c': '',
-        'answer_d': '',
-        'correct': ''
-    };
+
+    var countdown = (function() {
+
+        var $canvas = document.getElementById('cc-countdown');
+
+        var context = $canvas.getContext('2d'),
+            x  = $canvas.width / 2, y = $canvas.height / 2,
+            radius = 60;
+
+        var lineWidth = '20';
+
+        return {
+            draw:function() {
+
+                var total = 20;
+                var elapsed = 20; // Seconds elapsed
+                var seg = 2 / total;
+
+                var startAngle = 1.5 * Math.PI;
+                var endAngle = ((1.5)+(elapsed * seg)) * Math.PI;
+
+
+
+                context.beginPath();
+                context.arc(x, y, radius, startAngle, endAngle, false);
+                context.lineWidth = lineWidth;
+                context.strokeStyle = "green";
+                context.stroke();
+
+            },
+            animate: function() {
+
+                var total = 20;
+                var elapsed = 20; // Seconds elapsed
+                var seg = 2 / total;
+
+                var startAngle = 1.5 * Math.PI;
+                var endAngle = ((1.5)+(elapsed * seg)) * Math.PI;
+
+                var i = setInterval(function() {
+                    elapsed -= ((1000/60) / 1000);
+                    endAngle = ((1.5)+(elapsed * seg)) * Math.PI;
+                    context.beginPath();
+                    context.arc(x, y, radius, startAngle, endAngle, true);
+                    context.lineWidth = lineWidth;
+                    context.strokeStyle = "#aaaaaa";
+                    context.stroke();
+
+                    if (elapsed < 0) {
+                        clearInterval(i);
+                        elapsed = 20;
+                    }
+
+                }, 1000/60);
+
+
+
+
+            },
+            reset: function() {
+                context.clearRect(0, 0, $canvas.width, $canvas.height);
+                this.draw();
+            }
+        }
+    }());
+
+    countdown.draw();
+
+    $scope.question = { "id": "", "question": "", "answer_a": "", "answer_b": "", "answer_c": "", "answer_d": "", "correct": "" };
     $scope.animations = {
         'slideIn': false,
         'slideDown': false,
@@ -22,7 +83,7 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
     $scope.showAnswer = false;
     $scope.seenQuestions = [];
     $scope.seenCategories = [];
-    $scope.categories = ['Entertainment', 'Geography', 'Science', 'Sport'];
+    $scope.categories = $scope.UTIL.shuffle(['Entertainment', 'Geography', 'Science', 'Sport']);
     $scope.showCategory = $scope.categories[0];
     $scope.count = 0;
     $scope.TimeRemaining = 20;
@@ -48,6 +109,7 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
             }
             $scope.resetAnimations();
             $scope.resetCountdown();
+            countdown.reset();
             $scope.shifted = true;
             $scope.showAnswer = false;
             $timeout(function() {
@@ -62,6 +124,7 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
             }, 1000);
             $timeout(function() {
                 $scope.startCountdown();
+                countdown.animate();
                 $scope.sendAnswer();
             }, 3000);
             $timeout(function() {
@@ -75,15 +138,18 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
             loop = $timeout($scope.showQuestions, 26000);
         });
     };
+
     $timeout(function() {
         $scope.showQuestions();
     }, 1000);
+
     $scope.sendAnswer = function() {
         var answer = $scope.question.correct.toUpperCase();
         var $audio = angular.element(document.querySelector('#answer_' + answer + '_audio'));
         //$audio[0].play();
         console.log('The correct answer is: ' + answer);
     };
+
     $scope.startCountdown = function() {
         if ($scope.TimeRemaining == 0) {
             $timeout.cancel(timer);
@@ -92,6 +158,7 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
         timer = $timeout($scope.startCountdown, 1000);
         $scope.TimeRemaining--;
     };
+
     $scope.resetAnimations = function() {
         for (var k in $scope.animations) {
             if ($scope.animations.hasOwnProperty(k)) {
@@ -99,9 +166,16 @@ app.controller("QuestionsCtrl", function($scope, $http, $timeout) {
             }
         }
     };
+
     $scope.resetCountdown = function() {
         $timeout.cancel(timer);
         $scope.TimeRemaining = 20;
     };
+
+
+
+
+
+
     // $timeout.cancel(promise);
 });

@@ -126,6 +126,7 @@ main {
     text-align: center;
     color: #fff;
     margin-bottom: 20px;
+    font-weight: bold;
 }
 
 .answer-a {
@@ -179,19 +180,31 @@ main {
     font-weight: bold;
     font-size: 35px;
     background-color: transparent;
-    width: 70px;
+    width: 140px;
     height: 70px;
     line-height: 70px;
     position: absolute;
     top: 20px;
     right: 20px;
     text-align: center;
-    border-radius: 50%;
-    border: 10px solid green;
+    /*border-radius: 50%;*/
+    /*border: 10px solid green;*/
+}
+
+#countdown .inner {
+    position: relative;
+}
+
+#countdown canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 140px;
+    height: 70px;
 }
 
 #countdown.red {
-    border: 10px solid red;
+    /*border: 10px solid red;*/
 }
 
 #countdown.shifted {
